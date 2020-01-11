@@ -1,8 +1,9 @@
 import pygame 
+import random 
 
 pygame.init()
 
-display_width = 1000 #Ширина дисплея 
+display_width = 800 #Ширина дисплея 
 display_height = 600 #Высота дисплея 
 
 display = pygame.display.set_mode((display_width, display_height))
@@ -10,6 +11,8 @@ pygame.display.set_caption("DinoGame!")
 
 icon = pygame.image.load('Backgrounds/icon.png')
 pygame.display.set_icon(icon)
+
+cactus_img = []
 
 class Cactus:
 	def __init__(self, x, y, width, height, speed):
@@ -23,10 +26,13 @@ class Cactus:
 		if self.x >= -self.width:
 			pygame.draw.rect(display, (0, 255, 0), (self.x, self.y, self.width, self.height))
 			self.x -= self.speed
-
+			return True
 		else:
-			self.x = display_width - 50
+			# self.x = display_width + 100 + random.randrange(-80, 60)
+			return False
 
+	def return_self(self, radius):
+		self.x = radius
 
 usr_width = 60
 usr_height = 100
@@ -48,6 +54,7 @@ def run_game():
 	game = True
 	cactus_arr = []
 	create_cactus_arr(cactus_arr)
+	land = pygame.image.load('Backgrounds/Land.jpg')
 
 	while game:
 		for event in pygame.event.get():
@@ -63,7 +70,7 @@ def run_game():
 		if make_Jump:
 			jump()
 
-		display.fill((255, 255, 255))
+		display.blit(land, (0, 0))
 		draw_array(cactus_arr)
 
 		pygame.draw.rect(display, (255, 0, 0), (usr_x, usr_y, usr_width, usr_height))
@@ -81,14 +88,36 @@ def jump():
 		make_Jump = False 
 
 def create_cactus_arr(array):
-	array.append(Cactus(display_width - 50, display_height - 170, 20, 70, 4))
+	array.append(Cactus(display_width + 20, display_height - 170, 20, 70, 4))
 	array.append(Cactus(display_width + 50, display_height - 150, 30, 50, 4))
 	array.append(Cactus(display_width + 50, display_height - 180, 25, 80, 4)) 
 
+def find_radius(array):
+	maximum = max(array[0].x, array[1].x, array[2].x)
+
+	if maximum < display_width:
+		radius = display_width
+		if radius - maximum < 50:
+			radius += 150
+	else:
+		radius = maximum
+
+	choice = random.randrange(0, 5)
+	if choice == 0:
+		radius += random.randrange(10, 15)
+	else:
+		radius += random.randrange(200, 350)
+
+	return radius
+
 def draw_array(array):
 
-	for Cactus in array:
-		Cactus.move()
+	for cactus in array:
+		check = cactus.move()
+		if not check:
+			radius = find_radius(array)
+			cactus.return_self(radius)
+
 
 
 run_game()
