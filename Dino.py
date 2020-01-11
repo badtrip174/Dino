@@ -41,7 +41,7 @@ def run_game():
 
 		display.fill((255, 255, 255))
 
-		pygame.draw.rect(display, (255, 255, 0), (usr_x, usr_y, usr_width, usr_height))
+		pygame.draw.rect(display, (0, 255, 0), (usr_x, usr_y, usr_width, usr_height))
 
 		pygame.display.update()
 
