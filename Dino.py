@@ -2,7 +2,7 @@ import pygame
 
 pygame.init()
 
-display_width = 800 #Ширина дисплея 
+display_width = 1000 #Ширина дисплея 
 display_height = 600 #Высота дисплея 
 
 display = pygame.display.set_mode((display_width, display_height))
