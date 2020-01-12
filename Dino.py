@@ -12,27 +12,36 @@ pygame.display.set_caption("DinoGame!")
 icon = pygame.image.load('Backgrounds/icon.png')
 pygame.display.set_icon(icon)
 
-cactus_img = []
+cactus_img = [pygame.image.load('Objects/Cactus0.png'),pygame.image.load('Objects/Cactus1.png'),pygame.image.load('Objects/Cactus2.png')]
+
+cactus_options = [69, 449, 37, 410, 40, 420]
+
 
 class Cactus:
-	def __init__(self, x, y, width, height, speed):
+	def __init__(self, x, y, width, image, speed):
 		self.x = x 
 		self.y = y 
 		self.width = width
-		self.height = height
+		self.image = image
 		self.speed = speed
 
 	def move(self):
 		if self.x >= -self.width:
-			pygame.draw.rect(display, (0, 255, 0), (self.x, self.y, self.width, self.height))
+			display.blit(self.image, (self.x, self.y))
+			# pygame.draw.rect(display, (0, 255, 0), (self.x, self.y, self.width, self.height))
 			self.x -= self.speed
 			return True
 		else:
 			# self.x = display_width + 100 + random.randrange(-80, 60)
 			return False
 
-	def return_self(self, radius):
+	def return_self(self, radius, y, width, image):
 		self.x = radius
+		self.y = y
+		self.width = width
+		self.image = image
+		display.blit(self.image, (self.x, self.y))
+
 
 usr_width = 60
 usr_height = 100
@@ -88,9 +97,23 @@ def jump():
 		make_Jump = False 
 
 def create_cactus_arr(array):
-	array.append(Cactus(display_width + 20, display_height - 170, 20, 70, 4))
-	array.append(Cactus(display_width + 50, display_height - 150, 30, 50, 4))
-	array.append(Cactus(display_width + 50, display_height - 180, 25, 80, 4)) 
+	choice = random.randrange(0, 3)
+	img = cactus_img[choice]
+	width =  cactus_options[choice * 2]
+	height = cactus_options[choice * 2 + 1]
+	array.append(Cactus(display_width + 20, height, width, img, 4))
+
+	choice = random.randrange(0, 3)
+	img = cactus_img[choice]
+	width =  cactus_options[choice * 2]
+	height = cactus_options[choice * 2 + 1]
+	array.append(Cactus(display_width + 300, height, width, img, 4))
+
+	choice = random.randrange(0, 3)
+	img = cactus_img[choice]
+	width =  cactus_options[choice * 2]
+	height = cactus_options[choice * 2 + 1]
+	array.append(Cactus(display_width + 600, height, width, img, 4)) 
 
 def find_radius(array):
 	maximum = max(array[0].x, array[1].x, array[2].x)
@@ -116,7 +139,14 @@ def draw_array(array):
 		check = cactus.move()
 		if not check:
 			radius = find_radius(array)
-			cactus.return_self(radius)
+
+			choice = random.randrange(0, 3)
+			img = cactus_img[choice]
+			width =  cactus_options[choice * 2]
+			height = cactus_options[choice * 2 + 1]
+
+
+			cactus.return_self(radius, height, width, img)
 
 
 
