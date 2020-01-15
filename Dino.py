@@ -151,8 +151,3 @@ def draw_array(array):
 
 
 run_game()
-
-
-
-
-# ЕЕеееее это работает !!!
