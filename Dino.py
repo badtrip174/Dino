@@ -1,10 +1,10 @@
-import pygame 
-import random 
+import pygame
+import random
 
 pygame.init()
 
-display_width = 800 #Ширина дисплея 
-display_height = 600 #Высота дисплея 
+display_width = 800 #Ширина дисплея
+display_height = 600 #Высота дисплея
 
 display = pygame.display.set_mode((display_width, display_height))
 pygame.display.set_caption("DinoGame!")
@@ -19,8 +19,8 @@ cactus_options = [69, 449, 37, 410, 40, 420]
 
 class Cactus:
 	def __init__(self, x, y, width, image, speed):
-		self.x = x 
-		self.y = y 
+		self.x = x
+		self.y = y
 		self.width = width
 		self.image = image
 		self.speed = speed
@@ -45,11 +45,11 @@ class Cactus:
 
 usr_width = 60
 usr_height = 100
-usr_x = 20 
+usr_x = 20
 usr_y = display_height - usr_height - 100
 
 cactus_width = 20
-cactus_height = 70 
+cactus_height = 70
 cactus_x = display_width - 50
 cactus_y = display_height - cactus_height - 100
 
@@ -90,11 +90,11 @@ def run_game():
 def jump():
 	global usr_y, jump_counter, make_Jump
 	if jump_counter >= -30:
-		usr_y -= jump_counter / 2.5 
-		jump_counter -= 1 
+		usr_y -= jump_counter / 2.5
+		jump_counter -= 1
 	else:
-		jump_counter = 30 
-		make_Jump = False 
+		jump_counter = 30
+		make_Jump = False
 
 def create_cactus_arr(array):
 	choice = random.randrange(0, 3)
@@ -113,7 +113,7 @@ def create_cactus_arr(array):
 	img = cactus_img[choice]
 	width =  cactus_options[choice * 2]
 	height = cactus_options[choice * 2 + 1]
-	array.append(Cactus(display_width + 600, height, width, img, 4)) 
+	array.append(Cactus(display_width + 600, height, width, img, 4))
 
 def find_radius(array):
 	maximum = max(array[0].x, array[1].x, array[2].x)
@@ -151,3 +151,8 @@ def draw_array(array):
 
 
 run_game()
+
+
+
+
+# ЕЕеееее это работает !!!
